@@ -588,7 +588,7 @@ export default function PagosContent() {
         />
       )}
 
-      {modalEstudiante && user?.rol === 'superadmin' && (
+      {modalEstudiante && user?.role === 'superadmin' && (
         <EditarEstudianteModal
           estudiante={modalEstudiante}
           onClose={() => setModalEstudiante(null)}
