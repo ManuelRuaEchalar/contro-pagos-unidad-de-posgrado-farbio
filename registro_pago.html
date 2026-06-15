@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pago</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 18px;
+            color: #000;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* ── PANEL IZQUIERDO ── */
+        .panel-left {
+            width: 46%;
+            height: 100vh;
+            background: #F2F5F5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .btn-admin {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 162px;
+            height: 46px;
+            background: #FED700;
+            border: none;
+            border-radius: 2px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: 16px;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .btn-admin:hover {
+            background: #e5c200;
+        }
+
+        /* ── FORMULARIO PRINCIPAL ── */
+        .form-card {
+            width: 571px;
+            min-height: 509px;
+            background: #fff;
+            border-radius: 4px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.13);
+            padding: 36px 38px 32px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* ── FILA DE CAMPOS ── */
+        .fields-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .field-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field-label {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            color: #000;
+        }
+
+        .field-input {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            border: 0.8px solid #b0b0b0;
+            border-radius: 3px;
+            padding: 8px 12px;
+            outline: none;
+            color: #000;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+
+        .field-input:focus {
+            border-color: #2B2B2B;
+        }
+
+        /* ── FORM PAGO ── */
+        .form-pago-wrapper {
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .form-pago {
+            width: 496px;
+            min-height: 221px;
+            background: #fff;
+            border-radius: 4px;
+            border: 0.6px solid #2B2B2B;
+            padding: 32px 24px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Botón selector flotante sobre el borde */
+        .btn-tipo {
+            position: absolute;
+            top: -16px;
+            left: 20px;
+            background: #2B2B2B;
+            color: #fff;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            padding: 6px 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 2;
+            white-space: nowrap;
+        }
+
+        .btn-tipo svg {
+            transition: transform 0.2s;
+        }
+
+        .btn-tipo.open svg {
+            transform: rotate(180deg);
+        }
+
+        /* Dropdown */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            background: #2B2B2B;
+            border-radius: 0 0 3px 3px;
+            z-index: 10;
+            min-width: 200px;
+            overflow: hidden;
+        }
+
+        .dropdown.show {
+            display: block;
+        }
+
+        .dropdown-option {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            color: #fff;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .dropdown-option:hover {
+            background: #444;
+        }
+
+        /* Contenido interior form-pago */
+        .pago-content {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .pago-fields-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        /* Botón subir imagen */
+        .btn-upload {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            color: #2B2B2B;
+            border: 0.6px solid #2B2B2B;
+            border-radius: 3px;
+            padding: 8px 14px;
+            cursor: pointer;
+            background: #fff;
+            text-align: center;
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.15s;
+        }
+
+        .btn-upload:hover {
+            background: #f5f5f5;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* ── BOTÓN REGISTRAR ── */
+        .btn-registrar {
+            width: 200px;
+            height: 46px;
+            background: #FED700;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            font-size: 16px;
+            color: #000;
+            cursor: pointer;
+            align-self: center;
+            margin-top: 4px;
+            transition: background 0.2s;
+        }
+
+        .btn-registrar:hover {
+            background: #e5c200;
+        }
+
+        /* ── PANEL DERECHO ── */
+        .panel-right {
+            width: 54%;
+            height: 100vh;
+            background-image: url('images/medical/bio_6.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="panel-left">
+        <button class="btn-admin">Administración</button>
+
+        <div class="form-card">
+
+            <!-- Fila 1: CI y Nombre Completo -->
+            <div class="fields-row">
+                <div class="field-group">
+                    <label class="field-label">CI:</label>
+                    <input class="field-input" type="text" placeholder="Ingrese su CI">
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Nombre Completo:</label>
+                    <input class="field-input" type="text" placeholder="Ingrese su nombre">
+                </div>
+            </div>
+
+            <!-- Fila 2: Email y Celular -->
+            <div class="fields-row">
+                <div class="field-group">
+                    <label class="field-label">Email:</label>
+                    <input class="field-input" type="email" placeholder="ejemplo@correo.com">
+                </div>
+                <div class="field-group">
+                    <label class="field-label">Celular:</label>
+                    <input class="field-input" type="tel" placeholder="Ingrese su celular">
+                </div>
+            </div>
+
+            <!-- FORM PAGO -->
+            <div class="form-pago-wrapper">
+
+                <!-- Botón tipo pago (flotante sobre el borde) -->
+                <button class="btn-tipo" id="btnTipo" onclick="toggleDropdown()">
+                    <span id="labelTipo">Depósito bancario</span>
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L6 7L11 1" stroke="white" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <!-- Dropdown opciones -->
+                <div class="dropdown" id="dropdown">
+                    <div class="dropdown-option" onclick="selectTipo('deposito')">Depósito bancario</div>
+                    <div class="dropdown-option" onclick="selectTipo('qr')">Pago QR</div>
+                </div>
+
+                <!-- Caja form-pago -->
+                <div class="form-pago">
+                    <div class="pago-content" id="pagoCont">
+
+                        <!-- Contenido por defecto: Depósito bancario -->
+                        <div id="cont-deposito">
+                            <div class="field-group">
+                                <label class="field-label">Código depósito bancario:</label>
+                                <input class="field-input" type="text" placeholder="Ingrese el código">
+                            </div>
+                        </div>
+
+                        <!-- Contenido QR (oculto por defecto) -->
+                        <div id="cont-qr" style="display:none;">
+                            <div class="pago-fields-row">
+                                <div class="field-group">
+                                    <label class="field-label">Monto:</label>
+                                    <input class="field-input" type="number" placeholder="0.00">
+                                </div>
+                                <div class="field-group">
+                                    <label class="field-label">Comprobante:</label>
+                                    <label class="btn-upload" for="fileInput">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2B2B2B"
+                                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                                            <polyline points="17 8 12 3 7 8" />
+                                            <line x1="12" y1="3" x2="12" y2="15" />
+                                        </svg>
+                                        Subir imagen
+                                    </label>
+                                    <input type="file" id="fileInput" accept="image/*"
+                                        onchange="mostrarNombreArchivo(this)">
+                                    <span id="nombreArchivo" style="font-size:12px; color:#666; margin-top:2px;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botón Registrar pago -->
+            <button class="btn-registrar">Registrar pago</button>
+
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="panel-right"></div>
+
+    <script>
+        let dropdownAbierto = false;
+        let tipoActual = 'deposito';
+
+        function toggleDropdown() {
+            dropdownAbierto = !dropdownAbierto;
+            document.getElementById('dropdown').classList.toggle('show', dropdownAbierto);
+            document.getElementById('btnTipo').classList.toggle('open', dropdownAbierto);
+        }
+
+        function selectTipo(tipo) {
+            tipoActual = tipo;
+            dropdownAbierto = false;
+            document.getElementById('dropdown').classList.remove('show');
+            document.getElementById('btnTipo').classList.remove('open');
+
+            if (tipo === 'deposito') {
+                document.getElementById('labelTipo').textContent = 'Depósito bancario';
+                document.getElementById('cont-deposito').style.display = 'block';
+                document.getElementById('cont-qr').style.display = 'none';
+            } else {
+                document.getElementById('labelTipo').textContent = 'Pago QR';
+                document.getElementById('cont-deposito').style.display = 'none';
+                document.getElementById('cont-qr').style.display = 'block';
+            }
+        }
+
+        function mostrarNombreArchivo(input) {
+            const span = document.getElementById('nombreArchivo');
+            span.textContent = input.files.length > 0 ? input.files[0].name : '';
+        }
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('#btnTipo') && !e.target.closest('#dropdown')) {
+                if (dropdownAbierto) {
+                    dropdownAbierto = false;
+                    document.getElementById('dropdown').classList.remove('show');
+                    document.getElementById('btnTipo').classList.remove('open');
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>

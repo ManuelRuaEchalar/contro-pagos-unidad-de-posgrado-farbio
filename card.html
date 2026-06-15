@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card 4 - Brutalista Offset</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Space+Mono:wght@400;700&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f2f4f6;
+            font-family: 'DM Sans', system-ui, sans-serif;
+            padding: 60px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* CARD 4 - BRUTALISTA OFFSET */
+        .card-4 {
+            width: 380px;
+            background: #FFFFFF;
+            border: 2px solid #151515;
+            position: relative;
+            padding: 28px;
+            transition: all 0.25s ease;
+        }
+
+        .card-4::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            right: -6px;
+            bottom: -6px;
+            background: #1F3A5F;
+            /* color primario de la paleta */
+            z-index: -1;
+            transition: all 0.25s ease;
+        }
+
+        .card-4:hover::before {
+            top: 9px;
+            left: 9px;
+            right: -9px;
+            bottom: -9px;
+        }
+
+        .c4-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            color: #6c757d;
+            margin-bottom: 14px;
+        }
+
+        .card-4 h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #151515;
+            line-height: 1.35;
+            margin-bottom: 6px;
+        }
+
+        .c4-org {
+            font-family: 'Sora', sans-serif;
+            font-size: 0.78rem;
+            color: #1F3A5F;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .c4-line {
+            width: 40px;
+            height: 3px;
+            background: #FAE85A;
+            margin-bottom: 16px;
+        }
+
+        .card-4 p {
+            font-size: 0.84rem;
+            line-height: 1.65;
+            color: #151515;
+            opacity: 0.82;
+            margin-bottom: 20px;
+        }
+
+        .c4-meta {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            font-size: 0.78rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .c4-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .c4-meta-item .lbl {
+            color: #6c757d;
+            font-size: 0.65rem;
+        }
+
+        .c4-meta-item .val {
+            color: #151515;
+            font-weight: 700;
+        }
+
+        .c4-btns {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #adb5bd;
+            padding-top: 18px;
+        }
+
+        .c4-btn {
+            flex: 1;
+            padding: 11px 12px;
+            border: 2px solid #151515;
+            background: #FFFFFF;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #151515;
+        }
+
+        .c4-btn:hover {
+            background: #151515;
+            color: #FFFFFF;
+        }
+
+        .c4-btn-wa {
+            flex: 1;
+            padding: 11px 12px;
+            border: 2px solid #b3e9c7;
+            background: #b3e9c7;
+            color: #151515;
+            font-family: 'Sora', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .c4-btn-wa:hover {
+            filter: brightness(1.08);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card-4">
+        <div class="c4-number">CEPI — USFX / 2025</div>
+        <h2>Diplomado en Análisis Clínico</h2>
+        <div class="c4-org">Encargado Sistemas · 26 Nov 2025</div>
+        <div class="c4-line"></div>
+        <p>El Centro de Estudios de Posgrado e Investigación invita a profesionales Bioquímicos y
+            Bioquímico-Farmacéuticos a ser parte de este diplomado especializado.</p>
+
+        <div class="c4-meta">
+            <div class="c4-meta-item">
+                <span class="lbl">Inicio</span>
+                <span class="val">26·11·25</span>
+            </div>
+            <div class="c4-meta-item">
+                <span class="lbl">Costo</span>
+                <span class="val">Bs 2.800</span>
+            </div>
+            <div class="c4-meta-item">
+                <span class="lbl">Modalidad</span>
+                <span class="val">Presencial</span>
+            </div>
+        </div>
+
+        <div class="c4-btns">
+            <button class="c4-btn">Ver más</button>
+            <button class="c4-btn-wa">📱 WhatsApp</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
