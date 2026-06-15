@@ -219,7 +219,7 @@ export default function HomePage() {
                 id="btn-tipo-pago"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                {tipoPago === 'deposito' ? 'Depósito bancario' : 'Pago QR'}
+                {tipoPago === 'deposito' ? 'Depósito en cuenta' : 'Transferencia bancaria'}
                 <ChevronDown
                   size={12}
                   style={{ transition: 'transform 0.2s', transform: dropdownOpen ? 'rotate(180deg)' : 'none' }}
@@ -255,7 +255,7 @@ export default function HomePage() {
                       onMouseEnter={(e) => (e.currentTarget.style.background = '#444')}
                       onMouseLeave={(e) => (e.currentTarget.style.background = tipoPago === t ? '#333' : 'transparent')}
                     >
-                      {t === 'deposito' ? 'Depósito bancario' : 'Pago QR'}
+                      {t === 'deposito' ? 'Depósito en cuenta' : 'Transferencia bancaria'}
                     </div>
                   ))}
                 </div>

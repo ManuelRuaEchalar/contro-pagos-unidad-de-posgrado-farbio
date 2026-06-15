@@ -53,7 +53,7 @@ function CuotaCell({ cuota }: { cuota: CuotaResumen }) {
             gap: 3,
           }}>
             {cuota.tipo === 'qr' ? <QrCode size={9} /> : <Building2 size={9} />}
-            {cuota.tipo === 'qr' ? 'QR' : 'Depósito'}
+            {cuota.tipo === 'qr' ? 'Transferencia' : 'Depósito en cuenta'}
           </span>
         )}
       </div>
@@ -86,7 +86,7 @@ function DetallePagoModal({
             <span style={{ fontSize: 12, fontWeight: 600, color: 'var(--muted)' }}>Tipo de pago</span>
             <span style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6, color: cuota.tipo === 'qr' ? '#0369a1' : '#92400e' }}>
               {cuota.tipo === 'qr' ? <QrCode size={14} /> : <Building2 size={14} />}
-              {cuota.tipo === 'qr' ? 'Pago QR' : 'Depósito Bancario'}
+              {cuota.tipo === 'qr' ? 'Transferencia bancaria' : 'Depósito en cuenta'}
             </span>
           </div>
 
