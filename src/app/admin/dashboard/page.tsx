@@ -6,7 +6,7 @@ import Link from 'next/link';
 import api from '@/lib/api';
 import { useAuth } from '@/context/AuthContext';
 import { Programa } from '@/types';
-import { BookOpen, CreditCard, Users, ArrowRight, TrendingUp, Cloud } from 'lucide-react';
+import { BookOpen, CreditCard, Users, ArrowRight, TrendingUp, Cloud, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 interface DashboardStats {
@@ -60,6 +60,40 @@ export default function DashboardPage() {
     }
     load();
   }, []);
+
+  const handleExportExcel = async (e: React.MouseEvent, id: number) => {
+    e.stopPropagation();
+    try {
+      toast.loading('Exportando Excel...', { id: `export-${id}` });
+      const res = await api.get(`/admin/programas/${id}/export/excel`, {
+        responseType: 'blob'
+      });
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', `pagos_programa_${id}.xlsx`);
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode?.removeChild(link);
+      toast.success('Excel exportado', { id: `export-${id}` });
+    } catch {
+      toast.error('Error al exportar Excel', { id: `export-${id}` });
+    }
+  };
+
+  const handleDeletePrograma = async (e: React.MouseEvent, id: number) => {
+    e.stopPropagation();
+    if (!window.confirm('¿Está seguro que desea eliminar este programa y todos los pagos realizados a él?')) {
+      return;
+    }
+    try {
+      await api.delete(`/admin/programas/${id}`);
+      toast.success('Programa eliminado');
+      setProgramas(prev => prev.filter(p => p.id !== id));
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || 'Error al eliminar programa');
+    }
+  };
 
   const fmtBs = (n: number) =>
     'Bs ' + n.toLocaleString('es-BO', { minimumFractionDigits: 2 });
@@ -183,15 +217,21 @@ export default function DashboardPage() {
                 >
                   Ver pagos
                 </button>
-                <a
-                  href={`${process.env.NEXT_PUBLIC_API_URL}/admin/programas/${p.id}/export/excel`}
+                <button
                   className="btn btn-dark"
-                  style={{ flex: 1, fontSize: 12, padding: '8px 10px', textDecoration: 'none' }}
-                  onClick={(e) => e.stopPropagation()}
-                  download
+                  style={{ flex: 1, fontSize: 12, padding: '8px 10px' }}
+                  onClick={(e) => handleExportExcel(e, p.id)}
                 >
                   Excel
-                </a>
+                </button>
+                <button
+                  className="btn"
+                  style={{ background: '#ffeeee', color: '#d32f2f', border: '1px solid #ffcccc', fontSize: 12, padding: '8px 10px' }}
+                  onClick={(e) => handleDeletePrograma(e, p.id)}
+                  title="Eliminar programa"
+                >
+                  <Trash2 size={14} />
+                </button>
               </div>
             </div>
           ))}

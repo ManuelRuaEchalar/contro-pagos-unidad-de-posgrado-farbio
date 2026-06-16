@@ -323,7 +323,7 @@ export default function HomePage() {
                   id="file-comprobante"
                   type="file"
                   accept="image/*"
-                  style={{ display: 'none' }}
+                  style={{ opacity: 0, position: 'absolute', zIndex: -1, width: 1, height: 1 }}
                   {...register('imagen', {
                     required: 'La imagen del comprobante de pago es obligatoria.',
                     onChange: (e) => {
